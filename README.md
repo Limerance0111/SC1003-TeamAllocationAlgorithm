@@ -1,75 +1,92 @@
-# Team Allocation Algorithm Project
+# SC1003: Team Allocation Algorithm
 
-This repository contains a Python-based project that automatically allocates students into fair and balanced teams based on a set of team-formation constraints.
+## Project Title
+Student Team Allocation Using Fairness Constraints
 
-## Project Overview
+## Introduction
+This project was developed as part of the SC1003 coursework requirement. The aim of the assignment was to design an algorithm that groups students into balanced project teams based on fairness and diversity rules.
 
-The goal of the project is to assign students into project groups of 5 while maintaining fairness across:
+The main challenge was to allocate students into teams of 5 while ensuring that no team was unfairly dominated by a single school, gender, or academic performance category. The algorithm reads a dataset of students, performs preprocessing, applies balancing rules, and produces the final grouped output.
 
-- School diversity
-- Gender balance
-- Academic balance (CGPA range)
+## Objective
+The objective of this project is to:
 
-The solution reads student records from a CSV file, groups students by tutorial section, applies allocation rules, and exports the final team assignments.
+- read student data from a CSV file
+- group students by tutorial section
+- assign students into project teams of 5
+- ensure fairness across gender, school, and CGPA distribution
+- generate a final output file containing team allocations
 
-## Files in this Repository
+## Problem Statement
+In a large class, it is important for project teams to be formed fairly so that each team has a balanced mix of students. A team should not be dominated by one gender, one school, or one academic level.
 
-- `Mini Project.ipynb` — main notebook containing the project implementation and explanation
-- `records.csv` — raw student data used for allocation
-- `grouped_students (1).csv` — generated grouped output file
-- `Mini Project Requirements - Student (2).pdf` — project specification and requirements
+The project therefore applies the following fairness constraints:
 
-## What the Algorithm Does
+1. Gender balance: teams should ideally be in a 2:3 or 3:2 male-to-female ratio.
+2. School diversity: no more than 2 students from the same school in a team.
+3. Academic balance: no more than 2 students from the same CGPA range in a team.
 
-The workflow includes:
+## Dataset
+The repository contains the following files:
 
-1. Reading and preprocessing student records
-2. Categorizing CGPA values into ranges
-3. Grouping students by tutorial group
-4. Checking fairness constraints for each team
-5. Forming project teams using rule-based selection and fallback logic
-6. Trying swaps to improve balance when violations occur
-7. Exporting final results to CSV
+- `records.csv` — original student data
+- `grouped_students (1).csv` — generated team allocation output
+- `Mini Project.ipynb` — notebook containing the full implementation
+- `Mini Project Requirements - Student (2).pdf` — assignment requirements
 
-## Constraints Applied
+## Methodology
+The solution is implemented in Python and follows a structured workflow:
 
-Each team is designed to satisfy the following rules:
+1. Import necessary libraries
+2. Read the student records from CSV
+3. Categorize CGPA into academic ranges
+4. Group students by tutorial section
+5. Check whether a candidate student can be added to a team without violating constraints
+6. Form teams using rule-based selection
+7. Attempt swaps to improve team balance if violations are found
+8. Export the final grouped results as a CSV file
 
-- Gender composition should follow a balanced pattern such as 2 males + 3 females or 3 males + 2 females
-- No more than 2 students from the same school in one team
-- No more than 2 students in the same CGPA category in one team
+## Computational Thinking Concepts Applied
+This project demonstrates several core computational thinking principles:
 
-## How to Use
+- Decomposition: The problem was broken into smaller tasks such as reading data, grouping students, validating constraints, and exporting output.
+- Abstraction: Each student was represented using essential attributes such as school, gender, tutorial group, and CGPA.
+- Pattern Recognition: Similarities in gender, school, and academic level were identified to build fair teams.
+- Algorithmic Thinking: The team-building process used structured decision rules and iterative checks.
 
-Open the notebook in Jupyter and run the cells in sequence:
+## Key Functions
+The notebook includes functions such as:
 
-```bash
-jupyter notebook "Mini Project.ipynb"
-```
+- `cgpa_range()` — classifies CGPA into ranges
+- `readstudents()` — loads student records from CSV
+- `grp_with_tut()` — groups students by tutorial section
+- `checkconstraints()` — validates whether a team satisfies fairness constraints
+- `canadd()` — checks whether a student can be added to a partial team
+- `pick_student()` — selects a suitable student for the team
+- `formgrps()` — creates the student groups
+- `try_swap_fix()` — attempts to resolve team violations
+- `savegrps()` — saves the final team allocation to CSV
 
-If you are using the same project structure, ensure the CSV files are in the same directory as the notebook before running the allocation code.
+## Output
+The final output file, `grouped_students (1).csv`, contains each student's assigned tutorial group and team number, along with their personal information such as:
 
-## Expected Output
-
-The program generates a grouped output CSV containing each student's:
-
-- tutorial group
-- assigned team number
-- student ID
-- name
-- school
-- gender
+- Student ID
+- Name
+- School
+- Gender
 - CGPA
 
+## Results and Discussion
+The algorithm successfully generates teams based on predefined fairness conditions. Although some groups may still require additional adjustment in certain edge cases, the project demonstrates a practical approach to balancing team formation using constraint-based logical checks.
+
+This project is useful for understanding how computational problems can be translated into rule-based algorithmic solutions in real-world scenarios.
+
+## Conclusion
+This project shows how Python can be used to solve a real allocation problem by combining data processing, logic design, and optimization. It highlights the importance of fairness in team assignment and demonstrates how computational thinking can be applied to create balanced and efficient groupings.
+
+## References
+- Project requirements document provided in the repository
+- Coursework materials for SC1003
+
 ## Notes
-
-This project is a practical implementation of computational thinking principles, including:
-
-- decomposition
-- abstraction
-- pattern recognition
-- algorithmic thinking
-
-## License
-
-This project does not currently include a license file. If you plan to share or distribute it publicly, you may want to add an open-source license such as MIT.
+This repository is intended for academic submission and learning purposes.
